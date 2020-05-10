@@ -14,13 +14,15 @@
     "@types/react-dom": "^16.9.7",
     "@types/react-redux": "^7.1.8",
     "react": "^16.13.1",
+    "react-device-detect": "^1.12.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "process": "node src/Tools/mandelbrot.js",
+    "start": "npm run process && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "canvas": "^2.6.1"
   }
 }

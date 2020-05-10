@@ -1,6 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
-import Counter from "./features/counter/Counter";
+import Julia from "./features/julia/Julia";
 import {
   createMuiTheme,
   withStyles,
@@ -62,58 +61,7 @@ const App = ({ classes }: AppProps) => (
     <CssBaseline />
     <div className={classes.app}>
       <header className={classes.appHeader}>
-        <img src={logo} className={classes.appLogo} alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className={classes.appLink}
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className={classes.appLink}
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className={classes.appLink}
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          <span>, </span>
-          <a
-            className={classes.appLink}
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-          <span>, and </span>
-          <a
-            className={classes.appLink}
-            href="https://material-ui.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Material-UI
-          </a>
-        </span>
+       <Julia lut={{}}/>
       </header>
     </div>
   </MuiThemeProvider>

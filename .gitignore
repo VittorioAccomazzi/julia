@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#files generated
+data.json
+Mandelbrot.png
+
 # testing
 /coverage
 
