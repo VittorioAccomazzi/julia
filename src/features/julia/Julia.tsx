@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { C, Lut } from './jTypes';
 import JFractal from './jFractal';
 import cPoints from './data.json';
@@ -7,8 +7,7 @@ import {
     Theme,
     StyleRules,
     createStyles,
-    WithStyles,
-    CircularProgress
+    WithStyles
   } from "@material-ui/core";
   
   const styles: (theme: Theme) => StyleRules<string> = theme =>
@@ -32,7 +31,7 @@ import {
         useEffect(()=>{
             // timer.
             nextCPoint();
-            let interval = setInterval(nextCPoint, 2000);
+            let interval = setInterval(nextCPoint, 8000);
             return ()=> clearInterval(interval);
         },[]);
 

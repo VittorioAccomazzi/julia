@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {C, Lut} from './jTypes'
 import {isMobile} from 'react-device-detect';
+import Navigation from './Navigation';
 
 // based on https://stackblitz.com/edit/typescript-start-webgl-with-layout
 
@@ -44,7 +45,7 @@ interface Size {
 const JFractal = ({c, lut } : JFractalProps) => {
     let canvas = React.useRef<HTMLCanvasElement> (null);
     let glViewport = React.useRef<WebGLViewport> ();
-    let [size, setSize] = useState<Size>({width:0, height:0});
+    let [, setSize] = useState<Size>({width:0, height:0});
 
     // init the WebGL
     useEffect(()=>{
@@ -53,6 +54,7 @@ const JFractal = ({c, lut } : JFractalProps) => {
                 setSize({width:canvas.current.clientWidth, height:canvas.current.clientHeight})
             }
         }
+        
         if( canvas.current ){
             let context = canvas.current.getContext('webgl');
             if( context ){
@@ -76,7 +78,10 @@ const JFractal = ({c, lut } : JFractalProps) => {
     })
 
     return (
+        <>
         <canvas id="GlCanvas" style={canvasStyle} ref={canvas}></canvas>
+        <Navigation c={c} />
+        </>
     );
 }
 
