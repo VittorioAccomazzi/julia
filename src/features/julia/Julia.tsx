@@ -16,36 +16,44 @@ import {
 
     type JuliaProps = { lut : Lut } & WithStyles<typeof styles>;
 
-    const resetTime  = 3000; // a new animation every 5 seconds.
-    const frameTime = 200;  // 5 frame sec.
-    const maxDistance= 10; // in sampling step (pixels)
-    const noValue : number = -1;
+    const resetTime  = 1000; // a new animation every 3 seconds.
+    const frameTime = 100;  // 5 frame sec.
 
     const Julia = ({lut, classes } : JuliaProps) => {
-        let cStart = useRef<C>({x:-2,y:0});
-        let cEnd   = useRef<C>({x:-2,y:0});
-        let pos    = useRef<number>(0);
-        let iEnd   = useRef<number>(noValue);
+        let pathStart = useRef<number>(0);
+        let pathEnd   = useRef<number>(1);
+        let pathIndex = useRef<number>(0);
+        let cStart    = useRef<C>({x:0,y:0});
+        let cEnd      = useRef<C>({x:0,y:0});
+        let pos       = useRef<number>(0);
+        let ySign     = useRef<number>(0);
         let [cPoint, setCPoint] = useState<C|null>(null)
 
         // function to init the animation
         const resetPoints= () =>{
-            let sIndex = Math.floor(cPoints.seeds.length * Math.random());
-            if( iEnd.current != noValue ) sIndex = iEnd.current;
-            let sPoint = cPoints.seeds[sIndex];  
-            let dst = maxDistance * (cPoints.xMax-cPoints.xMin)/cPoints.nx;
-            let nMap = cPoints.seeds.map( (pt,i) => (i != sIndex && Math.abs(pt.x - sPoint.x) < dst && Math.abs( pt.y - sPoint.y ) < dst) ? i : noValue );
-            let nIndexes = nMap.filter((i)=> i!=noValue);
-            let ePoint = {x:sPoint.x + Math.random() * dst/2, y: sPoint.y+Math.random() *dst/2, i:0} // just to set an end point.
-            iEnd.current = noValue;
-            if( nIndexes.length > 0 ){
-                iEnd.current = nIndexes[Math.floor(nIndexes.length*Math.random())];
-                ePoint = cPoints.seeds[iEnd.current];
-            } 
-            cStart.current = sPoint;
-            cEnd.current = ePoint;
-            pos.current = 0;
-            console.log(`Animation start (${sPoint.x},${sPoint.y}) with ${sPoint.i} end (${ePoint.x},${ePoint.y}) width ${ePoint.i}`)
+            pathIndex.current++;
+            if ( pathIndex.current === pathEnd.current){
+                // Path is completed, need to create a new one.
+                let p1 =0;
+                let p2 =0;
+                while (p1 === p2 ){
+                    p1 = Math.floor(cPoints.steps.length * Math.random());
+                    p2 = Math.floor(cPoints.steps.length * Math.random());
+                }
+                pathStart.current = Math.min(p1,p2);    // group to start
+                pathEnd.current   = Math.max(p1,p2);    // group to end
+                pathIndex.current = pathStart.current;  
+                ySign.current     = Math.random() > 0.5 ? 1 : -1;
+                cStart.current    = selectRandomElement(cPoints.steps[pathStart.current]);
+                cStart.current.y *= ySign.current;
+                console.log(`New Animation from ${pathStart.current} to ${pathEnd.current}`)
+            } else {
+                cStart.current = cEnd.current;      
+            }
+            cEnd.current = selectRandomElement(cPoints.steps[pathIndex.current+1]);
+            cEnd.current.y *= ySign.current;
+            pos.current =0;
+            console.log(`  New Step from ${cStart.current.x}, ${cStart.current.y} to ${cEnd.current.x},${cEnd.current.y}`)
         }
 
         // function to change the CPoint
@@ -63,7 +71,6 @@ import {
                 x: cStart.current.x + xStep,
                 y: cStart.current.y + yStep
             }
-            //console.log(`   nextCPoint : (${point.x}, ${point.y})`);
             pos.current = pos.current +1;
             setCPoint(point);
         }
@@ -89,3 +96,11 @@ import {
     }
 
     export default withStyles(styles)(Julia);
+
+    // Utility functions
+
+    function selectRandomElement<T>(  list : Array<T>) : T {
+        let len = list.length;
+        let el = list[Math.floor(len*Math.random())];
+        return {...el}; // clone.
+    }

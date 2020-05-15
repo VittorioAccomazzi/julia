@@ -8,6 +8,7 @@
 #files generated
 data.json
 Mandelbrot.png
+JuliaPath.png
 
 # testing
 /coverage
