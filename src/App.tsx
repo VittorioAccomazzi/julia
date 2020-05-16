@@ -55,7 +55,7 @@ const App = ({ classes }: AppProps) => (
       <header className={classes.appHeader}>
         <ErrorBoundary message="The browser doesn't support WebGL">
               <Julia/>
-              <GitInfo label={"version "}/>
+              <GitInfo label={"version "} baseURL='https://github.com/VittorioAccomazzi/julia' forkme={true}/>
        </ErrorBoundary>
       </header>
     </div>
