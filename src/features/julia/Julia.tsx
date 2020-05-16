@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { C, Lut } from './jTypes';
 import JFractal from './jFractal';
 import cPoints from './data.json';
+import luts from './Luts.json';
 import {
     withStyles,
     Theme,
@@ -14,12 +15,12 @@ import {
     createStyles({
     })
 
-    type JuliaProps = { lut : Lut } & WithStyles<typeof styles>;
+    type JuliaProps = WithStyles<typeof styles>;
 
-    const resetTime  = 1000; // a new animation every 3 seconds.
-    const frameTime = 100;  // 5 frame sec.
+    const resetTime = 1000; // time of new animation
+    const frameTime = 100;  // ms per frame .
 
-    const Julia = ({lut, classes } : JuliaProps) => {
+    const Julia = ({ classes } : JuliaProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -27,12 +28,15 @@ import {
         let cEnd      = useRef<C>({x:0,y:0});
         let pos       = useRef<number>(0);
         let ySign     = useRef<number>(0);
+        let lut       = useRef<Lut>(luts[0]);
         let [cPoint, setCPoint] = useState<C|null>(null)
 
         // function to init the animation
         const resetPoints= () =>{
             pathIndex.current++;
             if ( pathIndex.current === pathEnd.current){
+                // select the lut
+                lut.current=luts[Math.floor(luts.length*Math.random())];
                 // Path is completed, need to create a new one.
                 let p1 =0;
                 let p2 =0;
@@ -90,7 +94,7 @@ import {
 
         return (
             <>
-                { cPoint != null && (<JFractal c={cPoint} lut={lut} />) }
+                { cPoint != null && (<JFractal c={cPoint} lut={lut.current} />) }
             </>
         );
     }

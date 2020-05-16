@@ -188,16 +188,6 @@ function drawFractal( canvas : HTMLCanvasElement, glViewport : WebGLViewport, c 
         y : -jSize.height/2
     }
 
-    let jWl = {
-        l : 6,
-        w : 46
-    }
-    
-    let c1 = "000000";
-    let c2 = "121760";
-    let c3 = "9f1111";
-    let c4 = "fff231";
-
     context.viewport(0, 0, vpWidth, vpHeight);
     context.clear(context.COLOR_BUFFER_BIT);
 
@@ -205,12 +195,12 @@ function drawFractal( canvas : HTMLCanvasElement, glViewport : WebGLViewport, c 
     context.uniform2f(glViewport.uViewportPos, jPos.x, jPos.y);
     context.uniform2f(glViewport.uCanvasSize, vpWidth, vpHeight);
     context.uniform2f(glViewport.uC, c.x, c.y);
-    context.uniform2f(glViewport.uWL, jWl.l, jWl.w);
+    context.uniform2f(glViewport.uWL, lut.wl.l, lut.wl.w);
 
-    SetUniformColor( context, glViewport.uCol1, c1 );
-    SetUniformColor( context, glViewport.uCol2, c2 );
-    SetUniformColor( context, glViewport.uCol3, c3 );
-    SetUniformColor( context, glViewport.uCol4, c4 );
+    SetUniformColor( context, glViewport.uCol1, lut.c1 );
+    SetUniformColor( context, glViewport.uCol2, lut.c2 );
+    SetUniformColor( context, glViewport.uCol3, lut.c3 );
+    SetUniformColor( context, glViewport.uCol4, lut.c4 );
 
     context.bindBuffer( context.ARRAY_BUFFER, glViewport.squareVertexPositionBuffer);
     context.vertexAttribPointer(glViewport.vertexPositionAttribute, glViewport.itemSize, context.FLOAT, false, 0, 0);

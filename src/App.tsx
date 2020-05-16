@@ -34,13 +34,6 @@ const styles: (theme: Theme) => StyleRules<string> = theme =>
     app: {
       textAlign: "center"
     },
-    appLogo: {
-      height: "40vmin",
-      pointerEvents: "none",
-      "@media (prefers-reduced-motion: no-preference) ": {
-        animation: "App-logo-float infinite 3s ease-in-out"
-      }
-    },
     appHeader: {
       minHeight: "100vh",
       display: "flex",
@@ -48,9 +41,6 @@ const styles: (theme: Theme) => StyleRules<string> = theme =>
       alignItems: "center",
       justifyContent: "center",
       fontSize: "calc(10px + 2vmin)"
-    },
-    appLink: {
-      color: "rgb(112, 76, 182)"
     }
   });
 
@@ -61,7 +51,7 @@ const App = ({ classes }: AppProps) => (
     <CssBaseline />
     <div className={classes.app}>
       <header className={classes.appHeader}>
-       <Julia lut={{}}/>
+       <Julia/>
       </header>
     </div>
   </MuiThemeProvider>
