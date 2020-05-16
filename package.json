@@ -21,7 +21,8 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "process": "node src/Tools/mandelbrot.js",
+    "process": "node src/Tools/gitInfo.js && node src/Tools/mandelbrot.js",
+    "deploy": "aws s3 sync build/ s3://julia-live/ --profile s3-julia",
     "start": "npm run process && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "canvas": "^2.6.1"
+    "canvas": "^2.6.1",
+    "child-process-promise": "^2.2.1"
   }
 }

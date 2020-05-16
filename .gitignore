@@ -9,6 +9,7 @@
 data.json
 Mandelbrot.png
 JuliaPath.png
+gitInfo.json
 
 # testing
 /coverage

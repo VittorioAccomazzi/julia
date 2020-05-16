@@ -36,7 +36,7 @@ import {
             pathIndex.current++;
             if ( pathIndex.current === pathEnd.current){
                 // select the lut
-                lut.current=luts[Math.floor(luts.length*Math.random())];
+                lut.current=selectRandomElement(luts);
                 // Path is completed, need to create a new one.
                 let p1 =0;
                 let p2 =0;
@@ -106,5 +106,6 @@ import {
     function selectRandomElement<T>(  list : Array<T>) : T {
         let len = list.length;
         let el = list[Math.floor(len*Math.random())];
-        return {...el}; // clone.
+        //return {...el}; // clone -- not supported by Edge
+        return Object.assign({}, el);
     }

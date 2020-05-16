@@ -63,6 +63,9 @@ const JFractal = ({c, lut } : JFractalProps) => {
                     initBuffers( context, viewport );
                     setWebGLDefaults(context);
                     glViewport.current = viewport;
+                } else {
+                    console.error('WebGL not supported');
+                    throw 'WebGL not supported !';
                 }
             }
         } 

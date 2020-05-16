@@ -1,5 +1,7 @@
 import React from "react";
 import Julia from "./features/julia/Julia";
+import ErrorBoundary from './common/errorboundary';
+import GitInfo from './common/gitInfo'
 import {
   createMuiTheme,
   withStyles,
@@ -51,7 +53,10 @@ const App = ({ classes }: AppProps) => (
     <CssBaseline />
     <div className={classes.app}>
       <header className={classes.appHeader}>
-       <Julia/>
+        <ErrorBoundary message="The browser doesn't support WebGL">
+              <Julia/>
+              <GitInfo label={"version "}/>
+       </ErrorBoundary>
       </header>
     </div>
   </MuiThemeProvider>
