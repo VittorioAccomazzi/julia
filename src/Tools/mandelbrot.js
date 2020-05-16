@@ -17,9 +17,9 @@ let yMax = 1;
 let sampleStep = 0.001;
 let nx = ( xMax - xMin )/sampleStep;
 let ny = ( yMax - yMin )/sampleStep;
-let neigStep = 6; // number of sampleStep to find a neigbour 
-let seedLowThr = 100;
-let seedHighThr = 250;
+let neigStep = 10; // number of sampleStep to find a neigbour 
+let seedLowThr = 30;
+let seedHighThr = 55;
 let cPoints = [];
 
 // data used for generating the random C
