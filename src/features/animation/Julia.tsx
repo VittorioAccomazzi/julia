@@ -7,9 +7,8 @@ type JuliaProps = {
     lut : Lut
 }
 
-const vSize ={
-    width : 2,
-    height: 2
+const vZoom ={
+    zoom : 2
 }
 
 const pos ={
@@ -33,7 +32,7 @@ const Julia = ({c, lut} : JuliaProps) =>{
         <FractalEngine 
             fragShaderCode={fragmentSource}
             vPos={pos}
-            vSize={vSize}
+            vZoom={vZoom}
             createUniform = {createUniform}
             setUniform={setUniform}
             lut={lut}

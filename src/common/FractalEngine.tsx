@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Lut, ViewportSize, ViewportPos} from './Types'
+import {Lut, ViewportZoom, ViewportPos, WindowSizeEvent, WindowSize} from './Types'
 import {isMobile} from 'react-device-detect';
 
 
@@ -35,25 +35,31 @@ type webGLCreateU = ( context : WebGLRenderingContext, program : WebGLProgram ) 
 type webGLUseU    = ( context : WebGLRenderingContext ) => void
 
 type FractalEngingProps = {
-    vSize : ViewportSize,
+    vZoom : ViewportZoom,
     vPos : ViewportPos,
     lut : Lut,
     fragShaderCode : string,
     createUniform? : webGLCreateU,
-    setUniform? : webGLUseU
+    setUniform? : webGLUseU,
+    onViewportSize? : WindowSizeEvent
 }
 
+const defaultSize = {
+    width : 0,
+    height: 0
+}
 
-const FractalEngine = ({vSize, vPos, lut, createUniform, setUniform, fragShaderCode } : FractalEngingProps) => {
+const FractalEngine = ({vZoom, vPos, lut, createUniform, setUniform, onViewportSize, fragShaderCode } : FractalEngingProps) => {
     let canvas = React.useRef<HTMLCanvasElement> (null);
     let glViewport = React.useRef<WebGLViewport> ();
-    let [, setSize] = useState<ViewportSize>({width:0, height:0});
+    let [, setSize] = useState<WindowSize>(defaultSize);
 
     // init the WebGL
     useEffect(()=>{
         function updateSize() {
             if( canvas.current ){
                 setSize({width:canvas.current.clientWidth, height:canvas.current.clientHeight})
+                reportRatio(canvas.current, onViewportSize);
             }
         }
         
@@ -65,6 +71,7 @@ const FractalEngine = ({vSize, vPos, lut, createUniform, setUniform, fragShaderC
                     initBuffers( context, viewport );
                     setWebGLDefaults(context);
                     glViewport.current = viewport;
+                    reportRatio(canvas.current, onViewportSize);
                 } else {
                     console.error('WebGL not supported');
                     throw 'WebGL not supported !';
@@ -79,7 +86,7 @@ const FractalEngine = ({vSize, vPos, lut, createUniform, setUniform, fragShaderC
     // Render the object
     useEffect(()=>{
         // render
-        if( canvas && canvas.current && glViewport && glViewport.current)  drawFractal(canvas.current, glViewport.current, vSize, vPos, lut, setUniform );
+        if( canvas && canvas.current && glViewport && glViewport.current)  drawFractal(canvas.current, glViewport.current, vZoom, vPos, lut, setUniform );
     })
 
     return (
@@ -172,7 +179,7 @@ function initShader( context : WebGLRenderingContext, shaderType : number, sourc
 // Main rendering function.
 //
 
-function drawFractal( canvas : HTMLCanvasElement, glViewport : WebGLViewport, vSize : ViewportSize, vPos : ViewportPos, lut : Lut, setUniform? : webGLUseU ) : void {
+function drawFractal( canvas : HTMLCanvasElement, glViewport : WebGLViewport, vZoom : ViewportZoom, vPos : ViewportPos, lut : Lut, setUniform? : webGLUseU ) : void {
     let ratio =  2.0;
     let vpWidth = canvas.clientWidth * ratio;
     let vpHeight= canvas.clientHeight* ratio;
@@ -182,8 +189,8 @@ function drawFractal( canvas : HTMLCanvasElement, glViewport : WebGLViewport, vS
     canvas.height=vpHeight ;
 
     let size = {
-        width  : vpWidth/Math.min(vpWidth,vpHeight) * vSize.width,
-        height : vpHeight/Math.min(vpWidth,vpHeight) * vSize.height
+        width  : vpWidth/Math.min(vpWidth,vpHeight) * vZoom.zoom,
+        height : vpHeight/Math.min(vpWidth,vpHeight) * vZoom.zoom
     }
     let pos = {
         x : -size.width/2 + vPos.x,
@@ -223,4 +230,15 @@ void main() {
     gl_Position = vec4(aVertexPosition, 1.0);
 }
 `
+
+// Misc.
+
+function reportRatio( canvas : HTMLCanvasElement, onViewportSize? : WindowSizeEvent) : void {
+    if( onViewportSize ){
+        onViewportSize( {
+            width : canvas.clientWidth,
+            height : canvas.clientHeight
+        });
+    }
+}
 

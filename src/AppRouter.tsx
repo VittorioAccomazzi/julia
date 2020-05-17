@@ -1,6 +1,6 @@
 import React from "react";
 import Animator from "./features/animation/Animator";
-import Map from './features/map/Map';
+import Navigator from './features/map/Navigator';
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,7 +14,7 @@ const AppRouter = ()=>{
         <Router>
         <Switch>
             <Route path="/map">
-                <Map/>
+                <Navigator/>
             </Route>
           <Route path="/">
             <Animator/>

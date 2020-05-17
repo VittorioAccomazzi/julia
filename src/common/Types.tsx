@@ -13,13 +13,19 @@ export interface Lut {
    c4: string
 }
 
-export interface ViewportSize {
-    width : number,
-    height: number
+export interface ViewportZoom {
+    zoom : number
 }
 
 export interface ViewportPos {
     x : number,
     y : number
 }
+
+export interface WindowSize {
+    width : number,
+    height: number
+}
+export type WindowSizeEvent  = ( ratio: WindowSize ) => void
+
 export {}
