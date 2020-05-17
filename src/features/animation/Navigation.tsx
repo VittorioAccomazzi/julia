@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { C } from './jTypes';
+import { C } from '../../common/Types';
 import cPoints from './data.json';
 
 const imageStyle : React.CSSProperties = {

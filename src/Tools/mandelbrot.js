@@ -105,8 +105,8 @@ if( path != null ){
     })
     
     // save json file
-    fs.writeFile('src/features/julia/data.json', JSON.stringify(data,4,1), (err)=> {
-        if( err ) console.err(err);
+    fs.writeFile('src/features/animation/data.json', JSON.stringify(data,4,1), (err)=> {
+        if( err ) console.error(err);
         else      console.log('The JSON file was created.');
     });
 } else {

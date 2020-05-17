@@ -1,7 +1,7 @@
 import React from "react";
-import Julia from "./features/julia/Julia";
-import ErrorBoundary from './common/errorboundary';
-import GitInfo from './common/gitInfo'
+import AppRouter from './AppRouter'
+import ErrorBoundary from './common/ErrorBoundary';
+import GitInfo from './common/GitInfo'
 import {
   createMuiTheme,
   withStyles,
@@ -54,7 +54,7 @@ const App = ({ classes }: AppProps) => (
     <div className={classes.app}>
       <header className={classes.appHeader}>
         <ErrorBoundary message="The browser doesn't support WebGL">
-              <Julia/>
+              <AppRouter/>
               <GitInfo label={"version "} baseURL='https://github.com/VittorioAccomazzi/julia' forkme={true}/>
        </ErrorBoundary>
       </header>

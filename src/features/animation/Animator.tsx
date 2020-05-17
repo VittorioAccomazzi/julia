@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { C, Lut } from './jTypes';
-import JFractal from './jFractal';
+import { C, Lut } from '../../common/Types';
+import JFractal from './Julia';
 import cPoints from './data.json';
-import luts from './Luts.json';
+import luts from '../../common/Luts.json'
+import Navigation from './Navigation';
 import {
     withStyles,
     Theme,
@@ -94,7 +95,12 @@ import {
 
         return (
             <>
-                { cPoint != null && (<JFractal c={cPoint} lut={lut.current} />) }
+                { cPoint != null && (
+                    <>
+                    <JFractal c={cPoint} lut={lut.current} />
+                    <Navigation c={cPoint} />
+                    </>
+                ) }
             </>
         );
     }
