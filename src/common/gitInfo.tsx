@@ -9,7 +9,7 @@ const versionStyle : React.CSSProperties = {
 }
 const ribbonStyle : React.CSSProperties = {
     position: 'absolute', 
-    left: '0px', 
+    right: '0px', 
     top: '0px'
 }
 
@@ -24,7 +24,7 @@ const  GitInfo : FunctionComponent<gitInfoProps> = ({label, baseURL, forkme}) =>
             {forkme && baseURL && (
                 <div style={ribbonStyle}> 
                     <a href={baseURL}>
-                        <img width="100" height="100" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_red_aa0000.png?resize=100%2C100" alt="Fork me on GitHub"/>
+                        <img width="100" height="100" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=100%2C100" alt="Fork me on GitHub"/>
                     </a>
                 </div>
             ) }

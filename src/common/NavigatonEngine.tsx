@@ -6,7 +6,8 @@ const imageStyle : React.CSSProperties = {
     right: '8px', 
     bottom: '8px', 
     width: '150px',
-    height: '100px'
+    height: '100px',
+    userSelect:'none'
 }
 
 type canvasDraw = ( context : CanvasRenderingContext2D  ) => void;

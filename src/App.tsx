@@ -3,6 +3,7 @@ import AppRouter from './AppRouter'
 import ErrorBoundary from './common/ErrorBoundary';
 import GitInfo from './common/GitInfo'
 import { makeStyles} from "@material-ui/core/styles";
+import './App.css'
 
 const useStyles = makeStyles(() => ({
   app: {

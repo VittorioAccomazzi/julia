@@ -1,5 +1,8 @@
 import React from "react";
 
+const divStyle : React.CSSProperties = {
+    userSelect:'none'
+}
 
 type ClickableProps = {
     link : string,
@@ -12,7 +15,7 @@ const Clickable = ({link,children } : ClickableProps)=>{
     }
 
     return (
-        <div onClick={onClick}>
+        <div onClick={onClick} style={divStyle}>
             {children}
         </div>
     )

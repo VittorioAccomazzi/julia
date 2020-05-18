@@ -9,8 +9,8 @@ import Clickable from '../../common/Clickable';
 
 const labelStyle : React.CSSProperties = {
     position: 'absolute', 
-    left : '80px', 
-    top  : '8px',
+    left : '16px', 
+    top  : '4px',
     color: 'white',
     display:'flex',
     alignItems:'center'
