@@ -4,6 +4,7 @@ import JFractal from './Julia';
 import cPoints from './data.json';
 import luts from '../../common/Luts.json'
 import Navigation from './Navigation';
+import NoInteraction from './NoInteraction'
 import {
     withStyles,
     Theme,
@@ -96,10 +97,12 @@ import {
         return (
             <>
                 { cPoint != null && (
-                    <>
-                    <JFractal c={cPoint} lut={lut.current} />
-                    <Navigation c={cPoint} />
-                    </>
+                    <NoInteraction>
+                        <>
+                        <JFractal c={cPoint} lut={lut.current} />
+                        <Navigation c={cPoint} />
+                        </>
+                    </NoInteraction>
                 ) }
             </>
         );
