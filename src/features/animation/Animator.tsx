@@ -4,25 +4,14 @@ import JFractal from './Julia';
 import cPoints from '../../common/data.json';
 import luts from '../../common/Luts.json'
 import Navigation from './Navigation';
-import NoInteraction from './NoInteraction'
-import {
-    withStyles,
-    Theme,
-    StyleRules,
-    createStyles,
-    WithStyles
-  } from "@material-ui/core";
-  
-  const styles: (theme: Theme) => StyleRules<string> = theme =>
-    createStyles({
-    })
+import NoInteraction from './NoInteraction';
+import Clickable from '../../common/Clickable'
 
-    type JuliaProps = WithStyles<typeof styles>;
 
     const resetTime = 1000; // time of new animation
     const frameTime = 100;  // ms per frame .
 
-    const Julia = ({ classes } : JuliaProps) => {
+    const Julia = () => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -100,7 +89,9 @@ import {
                     <NoInteraction>
                         <>
                         <JFractal c={cPoint} lut={lut.current} />
-                        <Navigation c={cPoint} />
+                        <Clickable link="/map">
+                            <Navigation c={cPoint} />
+                        </Clickable>
                         </>
                     </NoInteraction>
                 ) }
@@ -108,13 +99,12 @@ import {
         );
     }
 
-    export default withStyles(styles)(Julia);
+    export default Julia;
 
     // Utility functions
 
     function selectRandomElement<T>(  list : Array<T>) : T {
         let len = list.length;
         let el = list[Math.floor(len*Math.random())];
-        //return {...el}; // clone -- not supported by Edge
-        return Object.assign({}, el);
+        return {...el}; // clone -- not supported by Edge
     }

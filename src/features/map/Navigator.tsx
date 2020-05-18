@@ -4,6 +4,17 @@ import Luts from '../../common/Luts.json'
 import Interactor from './Interactor'
 import Navigation from "./Navigation";
 import MapHelp from "./MapHelp";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Clickable from '../../common/Clickable';
+
+const labelStyle : React.CSSProperties = {
+    position: 'absolute', 
+    left : '80px', 
+    top  : '8px',
+    color: 'white',
+    display:'flex',
+    alignItems:'center'
+}
 
 const defaultZoom ={
     zoom : 2
@@ -40,6 +51,12 @@ const Navigator = () =>{
                 />
                 )}
             />
+            <Clickable link="/">
+                <div style={labelStyle}>
+                    <ArrowBackIcon/>
+                    <small>Back to Animation</small>
+                </div>
+            </Clickable>
             <MapHelp/>
         </>
     )

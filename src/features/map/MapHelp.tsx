@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {isMobile} from 'react-device-detect';
 
 const localStorageKey="MapHelpReadStatus";
 const localStorageValue = "Read";
@@ -48,8 +49,22 @@ const MapHelp = ()=>{
         <DialogTitle id="alert-dialog-title">{"Julia Map"}</DialogTitle>
          <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                This is some context. asfhasjdfhas. skhaskdaskdh. akjhkasd
+                This page maps <i>all</i> the <a href="https://en.wikipedia.org/wiki/Julia_set">Julia fractals</a> on the complex plane. 
               </DialogContentText>
+              {isMobile && (
+                  <DialogContentText id="alert-dialog-description">
+                      Use the <b>pinch gesture</b> to zoom in and out the map and move it around.
+                  </DialogContentText>
+              )}
+              {!isMobile &&(
+                    <DialogContentText id="alert-dialog-description">
+                      <li>Press the <b>left mouse button</b>  drag the map around.</li>
+                      <li>Use the <b>mouse wheel</b> to zoom in and out</li>
+                    </DialogContentText> 
+              )}
+            <DialogContentText id="alert-dialog-description">
+            As you zoom in the map more and more fractal images are generated.
+            </DialogContentText>
         </DialogContent>
         <DialogActions>
         <Button onClick={onClose} color="primary">

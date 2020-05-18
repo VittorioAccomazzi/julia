@@ -146,6 +146,7 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
     }
 
     const onMouseWheel = (event: React.WheelEvent<HTMLDivElement>) =>{
+        event.preventDefault(); // reports an error in chrome, but it is necessary on Safari.
         let ds=1-event.deltaY/100;
         doZoom(ds, event.clientX, event.clientY);
 
