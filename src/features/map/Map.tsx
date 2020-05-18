@@ -50,11 +50,11 @@ __DEFINE__PLATFORM__
         #define MaxIteration  255
         
 
-         float xM = (gl_FragCoord.x /uCanvasSize.x ) * uViewportSize.x + uViewportPos.x; // pixel in the coordinate of Mondelbrot
-         float yM = ((uCanvasSize.y-gl_FragCoord.y) /uCanvasSize.y ) * uViewportSize.y + uViewportPos.y; // pixel in the coordinate of Mondelbrot
+         float xM = (gl_FragCoord.x /uCanvasSize.x ) * uViewportSize.x + uViewportPos.x; // pixel in the complex plane
+         float yM = ((uCanvasSize.y-gl_FragCoord.y) /uCanvasSize.y ) * uViewportSize.y + uViewportPos.y; 
 
-	    float xP = abs( xM ) * uCanvasSize.x/uViewportSize.x; // pixel in pixel coordinate respect the mandelbrout origin
-	    float yP = abs( yM ) * uCanvasSize.y /uViewportSize.y ;
+	    float xP = abs( xM ) * uCanvasSize.x/uViewportSize.x; // in pixel coordinate with the same origin of the complex plane
+	    float yP = abs( yM ) * uCanvasSize.y/uViewportSize.y ;
 
         int xTile = int(xP)/juliaSize;
         int yTile = int(yP)/juliaSize;
