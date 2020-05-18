@@ -14,16 +14,16 @@ import {
   MuiThemeProvider,
   CssBaseline,
 } from "@material-ui/core";
-import purple from "@material-ui/core/colors/purple";
+import blue from "@material-ui/core/colors/blue";
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
+    primary: blue,
     secondary: {
-      main: "#fff"
+      main: "#0A0A0A"
     },
     background: {
-      default: "#fff"
+      default: "#ffffff"
     }
   }
 });

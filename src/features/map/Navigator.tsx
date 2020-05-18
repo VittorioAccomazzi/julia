@@ -3,6 +3,7 @@ import Map from './Map'
 import Luts from '../../common/Luts.json'
 import Interactor from './Interactor'
 import Navigation from "./Navigation";
+import MapHelp from "./MapHelp";
 
 const defaultZoom ={
     zoom : 2
@@ -23,21 +24,24 @@ const defaultViewport ={
 const Navigator = () =>{
 
     return (
-        <Interactor display = {
-            (<Map
-                zoom={defaultZoom}
-                pos={defaultPos}
-                lut={Luts[1]}
-            />)}
-            navigation = {(
-                <Navigation 
-                x={defaultViewport.x} 
-                y={defaultViewport.y} 
-                width={defaultViewport.width}
-                height={defaultViewport.height}
+        <>
+            <Interactor display = {
+                (<Map
+                    zoom={defaultZoom}
+                    pos={defaultPos}
+                    lut={Luts[1]}
+                />)}
+                navigation = {(
+                    <Navigation 
+                    x={defaultViewport.x} 
+                    y={defaultViewport.y} 
+                    width={defaultViewport.width}
+                    height={defaultViewport.height}
+                />
+                )}
             />
-            )}
-        />
+            <MapHelp/>
+        </>
     )
 }
 
