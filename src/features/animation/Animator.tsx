@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { C, Lut } from '../../common/Types';
 import JFractal from './Julia';
-import cPoints from './data.json';
+import cPoints from '../../common/data.json';
 import luts from '../../common/Luts.json'
 import Navigation from './Navigation';
 import NoInteraction from './NoInteraction'

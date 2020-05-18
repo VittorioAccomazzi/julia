@@ -23,6 +23,14 @@ const labelStyle : React.CSSProperties = {
     
 }
 
+type nvigatorComponentProps = {
+    x: number,
+    y: number, 
+    width : number,
+    height: number
+}
+type navigatorComponent = FunctionComponent<nvigatorComponentProps>;
+
 type displayComponentProps = {
     zoom : ViewportZoom,
     pos  : ViewportPos,
@@ -33,6 +41,7 @@ type displayComponent = FunctionComponent<displayComponentProps>;
 
 type InteractorProps = {
     display : React.ReactElement<displayComponent>
+    navigation? : React.ReactElement<navigatorComponent>
 }
 
 const defaultZoom ={
@@ -52,7 +61,7 @@ const defaultSize ={
 const zoomMin = isMobile ? 0.1 : 0.01;
 const zoomMax = 4.0;
 
-const Interactor = ({display }: InteractorProps) =>{
+const Interactor = ({display, navigation }: InteractorProps) =>{
     let [pos,setPos] = useState<ViewportPos>(defaultPos)
     let [zoom,setZoom] = useState<ViewportZoom>(defaultZoom)
     let pointerPos     = useRef<ViewportPos|null>(null);
@@ -102,6 +111,19 @@ const Interactor = ({display }: InteractorProps) =>{
         };
          setPos(pos);
          setZoom(zoom);
+    }
+
+    // Actual viewport on the complex plane
+    const viewport= () => {
+        let mSize = Math.min( windowSize.current.width, windowSize.current.height);
+        let vW = windowSize.current.width/mSize*zoom.zoom; // size of the complex plane
+        let vH = windowSize.current.height/mSize*zoom.zoom;
+        return ({
+            width : vW, 
+            height: vH,
+            x: -vW/2+pos.x,    
+            y: -vH/2+pos.y
+        })
     }
 
     // Mouse Events
@@ -200,7 +222,11 @@ const Interactor = ({display }: InteractorProps) =>{
             { 
                 React.cloneElement(display as React.ReactElement, {zoom, pos, onViewportSize}) 
             }
-            <div style={labelStyle}>{zoom.zoom}</div>
+            {
+                navigation ?
+                    React.cloneElement(navigation as React.ReactElement, viewport())   
+                : null
+            }
         </div>
     )
 }
