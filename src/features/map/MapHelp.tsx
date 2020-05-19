@@ -58,12 +58,12 @@ const MapHelp = ()=>{
               )}
               {!isMobile &&(
                     <DialogContentText id="alert-dialog-description">
-                      <li>Press the <b>left mouse button</b>  drag the map around.</li>
+                      <li>Press the <b>left mouse button</b> and drag the map around.</li>
                       <li>Use the <b>mouse wheel</b> to zoom in and out</li>
                     </DialogContentText> 
               )}
             <DialogContentText id="alert-dialog-description">
-            As you zoom in the map more and more fractal images are generated.
+            As you zoom in the map more and more fractal images are generated. See this <a href="https://youtu.be/-SsxG6hmf8U?t=60">short youtube video</a>.
             </DialogContentText>
         </DialogContent>
         <DialogActions>
