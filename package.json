@@ -26,8 +26,8 @@
   "scripts": {
     "process": "node src/Tools/gitInfo.js && node src/Tools/mandelbrot.js",
     "deploy": "aws s3 sync build/ s3://julia-live/ --profile s3-julia",
-    "start": "npm run process && react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "npm run process && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
