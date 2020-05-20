@@ -46,33 +46,30 @@ __DEFINE__PLATFORM__
 
     void main() {
 
-		#define juliaSize 128
+		#define juliaSize (128.0)
         #define MaxIteration  255
-        
-	   float xM = (gl_FragCoord.x /uCanvasSize.x ) * uViewportSize.x + uViewportPos.x; // pixel in the coordinate of Complex plane
-	   float yM = ((uCanvasSize.y-gl_FragCoord.y) /uCanvasSize.y ) * uViewportSize.y + uViewportPos.y; // pixel in the coordinate of Complex plane
+       
+         float xM = (gl_FragCoord.x /uCanvasSize.x ) * uViewportSize.x + uViewportPos.x; // pixel in the coordinate of Mondelbrot
+         float yM = ((uCanvasSize.y-gl_FragCoord.y) /uCanvasSize.y ) * uViewportSize.y + uViewportPos.y; // pixel in the coordinate of Mondelbrot
 
-	   float xP = xM * uCanvasSize.x/uViewportSize.x; // pixel in pixel unit, buut in the complex plane
-	   float yP = yM  * uCanvasSize.y /uViewportSize.y ;
+	    float xP = xM * uCanvasSize.x/uViewportSize.x; // pixel in pixel coordinate respect the mandelbrout origin
+	    float yP = yM  * uCanvasSize.y /uViewportSize.y ;
 
-	   int xTile = int(xP)/juliaSize;
-	   int yTile = int(yP)/juliaSize;
-	   int xPos = int(xP)- juliaSize*xTile;
-	   int yPos = int(yP)- juliaSize*yTile;
-	   xPos += ( xPos < 0 ? juliaSize : 0 ); // this is now positive with the origin on the tile.
-	   yPos += ( yPos < 0 ? juliaSize : 0 );
-	   
-	   int xCPos= juliaSize*xTile+juliaSize/2;
-	   int yCPos= juliaSize*yTile+juliaSize/2;	   
-	   
-	   xCPos += ( xTile < 0 ? -juliaSize : 0 );
-	   yCPos += ( yTile < 0 ? -juliaSize : 0 );
-   
-	   float xC = float(xCPos)* uViewportSize.x/uCanvasSize.x;
-	   float yC = float(yCPos)* uViewportSize.y/uCanvasSize.y; 
+        float xTile = floor(xP/juliaSize);
+        float yTile = floor(yP/juliaSize);
+        float xPos = floor(xP)- juliaSize*xTile;
+	    float yPos = floor(yP)- juliaSize*yTile;
+	    xPos += ( xPos < 0.0 ? juliaSize : 0.0 );
+	    yPos += ( yPos < 0.0 ? juliaSize : 0.0 );
+	    
+	    float xCPos= juliaSize*xTile+juliaSize/2.0;
+	    float yCPos= juliaSize*yTile+juliaSize/2.0;	   
+	
+		float xC = xCPos* uViewportSize.x/uCanvasSize.x;
+		float yC = yCPos* uViewportSize.y/uCanvasSize.y; 
 
-	   float x= 2.0 * float(xPos)/float(juliaSize)-1.0; // set the origin at the center of the tile.
-	   float y= 2.0 * float(yPos)/float(juliaSize)-1.0;
+	    float x= 2.0 * xPos/juliaSize-1.0;
+	    float y= 2.0 * yPos/juliaSize-1.0;
 	    
         float d;
 	    float r = x;

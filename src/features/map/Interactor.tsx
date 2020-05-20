@@ -58,7 +58,7 @@ const defaultSize ={
     height: 0
 }
 
-const zoomMin = isMobile ? 0.1 : 0.01;
+const zoomMin = isMobile ? 0.05 : 0.01;
 const zoomMax = 4.0;
 
 const Interactor = ({display, navigation }: InteractorProps) =>{
