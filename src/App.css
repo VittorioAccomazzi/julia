@@ -1,3 +1,7 @@
 body {
     overflow: hidden;
 }
+
+.MuiTouchRipple-root {
+    display : none
+}
