@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, FunctionComponent } from "react";
-import { C, Lut, AnimationPath, FractalProps, PointNavigationProps } from '../../common/Types';
+import { C, Lut, AnimationPath, FractalProps, PointNavigationProps, AnimationCompletedEvent } from '../../common/Types';
 import luts from '../../common/Luts.json'
 import NoInteraction from './NoInteraction';
 import Clickable from '../../common/Clickable'
@@ -8,7 +8,6 @@ import Clickable from '../../common/Clickable'
     type FractalComponent = FunctionComponent<FractalProps>;
     type NovigationComponent = FunctionComponent<PointNavigationProps>;
 
-
     type AnimatorBaseProps = {
         cPoints : AnimationPath,
         resetTime : number,
@@ -16,10 +15,12 @@ import Clickable from '../../common/Clickable'
         flipY : boolean,
         fractal : React.ReactElement<FractalComponent>,
         navigation : React.ReactElement<NovigationComponent>,
-        mapURL : string
+        mapURL : string,
+        onCompleted? : AnimationCompletedEvent
     }
+    
 
-    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fractal, navigation, mapURL}:AnimatorBaseProps) => {
+    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fractal, navigation, mapURL, onCompleted}:AnimatorBaseProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -31,9 +32,10 @@ import Clickable from '../../common/Clickable'
         let [cPoint, setCPoint] = useState<C|null>(null)
 
         // function to init the animation
-        const resetPoints= () =>{
+        const resetPoints= ( isInit: boolean = false ) =>{
             pathIndex.current++;
             if ( pathIndex.current === pathEnd.current){
+                if( !isInit && onCompleted ) onCompleted();
                 // select the lut
                 lut.current=selectRandomElement(luts);
                 // Path is completed, need to create a new one.
@@ -82,7 +84,7 @@ import Clickable from '../../common/Clickable'
         //Initialization
         useEffect(()=>{
             // timer.
-            resetPoints();
+            resetPoints(true);
             nextCPoint()
             let frameInterval = setInterval(nextCPoint, frameTime);
             let resetInterval = setInterval(resetPoints, resetTime)

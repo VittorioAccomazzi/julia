@@ -104,6 +104,8 @@ export default FractalEngine;
 
 function initWebGL ( context : WebGLRenderingContext, fragmentSource : string, createUniform? : webGLCreateU) : WebGLViewport |  null  {
    
+    console.log("Creating WehGL Context ");
+    
     // upload the shaders
     let fShader = initShader(context, context.FRAGMENT_SHADER, fragmentSource);
     let vShader = initShader(context, context.VERTEX_SHADER, vertexSource)

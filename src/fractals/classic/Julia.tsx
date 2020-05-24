@@ -3,7 +3,7 @@ import {FractalProps} from '../../common/Types';
 import JuliaBase from '../../features/animation/JuliaBase'
 
 const vZoom ={
-    zoom : 2
+    zoom : 2.5
 }
 
 const JuliaClassic = ({c, lut}:FractalProps ) => {

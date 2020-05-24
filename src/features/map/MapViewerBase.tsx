@@ -42,7 +42,7 @@ const MapViewerBase = ({map, nav} : MapViewerBaseProps) =>{
                 />
                 )}
             />
-            <Clickable link="/">
+            <Clickable>
                 <div style={labelStyle}>
                     <ArrowBackIcon/>
                     <small>Back to Animation</small>

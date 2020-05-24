@@ -5,13 +5,17 @@ const divStyle : React.CSSProperties = {
 }
 
 type ClickableProps = {
-    link : string,
+    link? : string,
     children : React.ReactElement
 }
 const Clickable = ({link,children } : ClickableProps)=>{
 
     const onClick = ( event : React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
-        window.location.href = link;
+        if( link ){
+            window.location.href = link;
+        } else {
+            window.history.back();  
+        }
     }
 
     return (
