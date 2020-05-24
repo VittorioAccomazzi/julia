@@ -13,6 +13,18 @@ export interface Lut {
    c4: string
 }
 
+export type AnimationPoint = Array<C>;
+
+export interface AnimationPath {
+    xMin : number,
+    yMin : number,
+    xMax : number,
+    yMax : number,
+    nx : number,
+    ny : number,
+    steps : Array<AnimationPoint>
+}
+
 export interface ViewportZoom {
     zoom : number
 }
@@ -27,5 +39,44 @@ export interface WindowSize {
     height: number
 }
 export type WindowSizeEvent  = ( ratio: WindowSize ) => void
+
+export type  FractalProps = {
+    c: C,
+    lut : Lut
+}
+
+export type PointNavigationProps = {
+    c : C
+}
+
+export type AreaNavigationProps = {
+    x: number,
+    y: number,
+    width : number,
+    height: number
+}
+
+export type MapProps = {
+    lut : Lut,
+    zoom: ViewportZoom,
+    pos : ViewportPos,
+    onViewportSize? : WindowSizeEvent
+}
+
+export const defaultZoom ={
+    zoom : 2
+}
+
+export const defaultPos ={
+    x: -1,
+    y: 0
+}
+
+export const defaultViewport ={
+    x:-1,
+    y:-1,
+    width:2,
+    height:2
+}
 
 export {}

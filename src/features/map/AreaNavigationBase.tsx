@@ -1,16 +1,19 @@
 import React  from "react";
-import cPoints from '../../common/data.json'
+import { AnimationPath } from '../../common/Types'
 import NavigationEngine from '../../common/NavigatonEngine'
 
 
-type NavigationProp = {
+type AreaNavigationBaseProps = {
     x: number,
     y: number,
     width : number,
-    height: number
+    height: number,
+    mapImage : string,
+    cPoints : AnimationPath
+
 }
 
-const Navigation = ({x,y,width, height} : NavigationProp) => {
+const AreaNavigationBase = ({x,y,width, height, mapImage, cPoints} : AreaNavigationBaseProps) => {
 
     const onCanvasDraw = ( ctx : CanvasRenderingContext2D ) => {
         let canvas = ctx.canvas;
@@ -36,8 +39,9 @@ const Navigation = ({x,y,width, height} : NavigationProp) => {
     return (
         <NavigationEngine
             onCanvasDraw={onCanvasDraw}
+            mapImage={mapImage}
         />
     )
 }
 
-export default Navigation;
+export default AreaNavigationBase;

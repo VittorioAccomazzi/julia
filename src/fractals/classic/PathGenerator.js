@@ -21,6 +21,7 @@ let neigStep = 10; // number of sampleStep to find a neigbour
 let seedLowThr = 30;
 let seedHighThr = 55;
 let cPoints = [];
+let JsonFilename = 'src/fractals/classic/Classic.json' 
 
 // data used for generating the random C
 let data = {
@@ -105,7 +106,7 @@ if( path != null ){
     })
     
     // save json file
-    fs.writeFile('src/common/data.json', JSON.stringify(data,4,1), (err)=> {
+    fs.writeFile(JsonFilename, JSON.stringify(data,4,1), (err)=> {
         if( err ) console.error(err);
         else      console.log('The JSON file was created.');
     });

@@ -1,46 +1,25 @@
-import React, {useRef} from "react";
-import {C, Lut} from '../../common/Types';
-import FractalEngine from '../../common/FractalEngine';
-
-type JuliaProps = {
-    c: C,
-    lut : Lut
-}
+import React from "react";
+import {FractalProps} from '../../common/Types';
+import JuliaBase from '../../features/animation/JuliaBase'
 
 const vZoom ={
     zoom : 2
 }
 
-const pos ={
-    x: 0,
-    y: 0
-}
-
-const Julia = ({c, lut} : JuliaProps) =>{
-    let uC = useRef<WebGLUniformLocation|null>(null);
-
-    let createUniform = function ( context : WebGLRenderingContext, wglProgram : WebGLProgram ){
-        uC.current= context.getUniformLocation(wglProgram,"uC");
-    }
-
-    let setUniform = function ( context : WebGLRenderingContext ){
-        if( uC.current ) context.uniform2f(uC.current, c.x, c.y);
-    }
-
+const JuliaClassic = ({c, lut}:FractalProps ) => {
 
     return (
-        <FractalEngine 
-            fragShaderCode={fragmentSource}
-            vPos={pos}
-            vZoom={vZoom}
-            createUniform = {createUniform}
-            setUniform={setUniform}
+        <JuliaBase
+            c={c}
             lut={lut}
-             />
+            fragmentSource={fragmentSource}
+            zoom={vZoom}
+         />
     )
 }
 
-export default Julia;
+export default JuliaClassic;
+
 
 const fragmentSource = `
 __DEFINE__PLATFORM__
@@ -77,7 +56,13 @@ void main() {
     
         if( d > 4.0)
         {
+            // use  normalized iteration count algorithm, see http://math.unipa.it/~grim/Jbarrallo.PDF 
             float gray=float(it);
+            gray = gray +1.0- (log(log(sqrt(d)))/log(2.0));
+            gray = min(256.0, gray);
+            gray = max( 0.0, gray);
+
+            // lookup
             if( gray < uWL.x ){
                 outCol= mix( uCol1, uCol2, gray/uWL.x);
             } else if ( gray < uWL.y+uWL.x ) {
@@ -91,3 +76,7 @@ void main() {
     gl_FragColor = vec4(outCol.xyz,1.0);
 }
 `
+
+
+
+

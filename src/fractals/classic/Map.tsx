@@ -1,28 +1,22 @@
+
 import React from "react";
-import {Lut, ViewportPos, ViewportZoom, WindowSizeEvent} from '../../common/Types';
-import FractalEngine from '../../common/FractalEngine';
+import MapBase from '../../features/map/MapBase'
+import {MapProps} from '../../common/Types'
 
-type MapProps = {
-    lut : Lut,
-    zoom: ViewportZoom,
-    pos : ViewportPos,
-    onViewportSize? : WindowSizeEvent
-}
 
-const Map = ({lut, zoom, pos, onViewportSize} : MapProps) =>{
-
+const MapClassic = ({lut, zoom, pos, onViewportSize}: MapProps)=>{
     return (
-        <FractalEngine 
-            fragShaderCode={fragmentSource}
-            vPos={pos}
-            vZoom={zoom}
+        <MapBase
             lut={lut}
+            zoom={zoom}
+            pos={pos}
             onViewportSize={onViewportSize}
-             />
+            fragmentSource={fragmentSource}
+        />
     )
 }
 
-export default Map;
+export default MapClassic;
 
 const fragmentSource =`
 __DEFINE__PLATFORM__

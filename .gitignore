@@ -10,6 +10,10 @@ data.json
 Mandelbrot.png
 JuliaPath.png
 gitInfo.json
+Phoenix.png
+PhoenixPath.png
+Classic.json
+Phoenix.json
 
 # testing
 /coverage

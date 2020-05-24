@@ -1,6 +1,8 @@
 import React from "react";
-import Animator from "./features/animation/Animator";
-import Navigator from './features/map/Navigator';
+import AnimatorClassic from './fractals/classic/Animator'
+import MapClassic from './fractals/classic/MapViewer'
+import AnimatorPhoenix from './fractals/phoenix/Animator'
+import MapPhoenix from './fractals/phoenix/MapViewer'
 import {
     BrowserRouter as Router,
     Switch,
@@ -13,11 +15,17 @@ const AppRouter = ()=>{
         <>
         <Router>
         <Switch>
-            <Route path="/map">
-                <Navigator/>
-            </Route>
+          <Route path="/mapClassic">
+              <MapClassic/>
+          </Route>
+          <Route path="/mapPhoenix">
+              <MapPhoenix/>
+          </Route>
+          <Route path="/Phoenix">
+            <AnimatorPhoenix/>
+          </Route>
           <Route path="/">
-            <Animator/>
+            <AnimatorClassic/>
           </Route>
         </Switch>
         </Router>

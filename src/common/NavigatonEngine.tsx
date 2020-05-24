@@ -13,10 +13,11 @@ const imageStyle : React.CSSProperties = {
 type canvasDraw = ( context : CanvasRenderingContext2D  ) => void;
 
 type NavigationEngineProps = {
-    onCanvasDraw : canvasDraw
+    onCanvasDraw : canvasDraw,
+    mapImage : string
 }
 
-const NavigationEngine = ({onCanvasDraw} : NavigationEngineProps) =>{
+const NavigationEngine = ({onCanvasDraw, mapImage} : NavigationEngineProps) =>{
     let canvas = React.useRef<HTMLCanvasElement> (null);
     useEffect(()=>{
         if( canvas.current ){
@@ -32,7 +33,7 @@ const NavigationEngine = ({onCanvasDraw} : NavigationEngineProps) =>{
 
     return (
         <>
-            <img src={"Mandelbrot.png"}  style={imageStyle} alt="navigation window"/>
+            <img src={mapImage}  style={imageStyle} alt="navigation window"/>
             <canvas ref={canvas} style={imageStyle} />
         </>
     )

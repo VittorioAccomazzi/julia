@@ -1,17 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import { C, Lut } from '../../common/Types';
-import JFractal from './Julia';
-import cPoints from '../../common/data.json';
+import React, { useState, useEffect, useRef, FunctionComponent } from "react";
+import { C, Lut, AnimationPath, FractalProps, PointNavigationProps } from '../../common/Types';
 import luts from '../../common/Luts.json'
-import Navigation from './Navigation';
 import NoInteraction from './NoInteraction';
 import Clickable from '../../common/Clickable'
 
 
-    const resetTime = 1000; // time of new animation
-    const frameTime = 100;  // ms per frame .
+    type FractalComponent = FunctionComponent<FractalProps>;
+    type NovigationComponent = FunctionComponent<PointNavigationProps>;
 
-    const Julia = () => {
+
+    type AnimatorBaseProps = {
+        cPoints : AnimationPath,
+        resetTime : number,
+        frameTime : number,
+        flipY : boolean,
+        fractal : React.ReactElement<FractalComponent>,
+        navigation : React.ReactElement<NovigationComponent>,
+        mapURL : string
+    }
+
+    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fractal, navigation, mapURL}:AnimatorBaseProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -39,6 +47,7 @@ import Clickable from '../../common/Clickable'
                 pathEnd.current   = Math.max(p1,p2);    // group to end
                 pathIndex.current = pathStart.current;  
                 ySign.current     = Math.random() > 0.5 ? 1 : -1;
+                ySign.current     = flipY ? ySign.current : 1; 
                 cStart.current    = selectRandomElement(cPoints.steps[pathStart.current]);
                 cStart.current.y *= ySign.current;
                 console.log(`New Animation from ${pathStart.current} to ${pathEnd.current}`)
@@ -75,8 +84,8 @@ import Clickable from '../../common/Clickable'
             // timer.
             resetPoints();
             nextCPoint()
-            let resetInterval = setInterval(nextCPoint, frameTime);
-            let frameInterval = setInterval(resetPoints, resetTime)
+            let frameInterval = setInterval(nextCPoint, frameTime);
+            let resetInterval = setInterval(resetPoints, resetTime)
             return ()=> { 
                 clearInterval(resetInterval);
                 clearInterval(frameInterval);
@@ -88,9 +97,13 @@ import Clickable from '../../common/Clickable'
                 { cPoint != null && (
                     <NoInteraction>
                         <>
-                        <JFractal c={cPoint} lut={lut.current} />
-                        <Clickable link="/map">
-                            <Navigation c={cPoint} />
+                        {
+                            React.cloneElement(fractal as React.ReactElement, {c:cPoint, lut:lut.current}) 
+                        }
+                        <Clickable link={mapURL}>
+                            {
+                                React.cloneElement(navigation as React.ReactElement, {c:cPoint}) 
+                            }
                         </Clickable>
                         </>
                     </NoInteraction>
@@ -99,7 +112,7 @@ import Clickable from '../../common/Clickable'
         );
     }
 
-    export default Julia;
+    export default AnimatorBase;
 
     // Utility functions
 
