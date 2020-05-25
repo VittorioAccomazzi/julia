@@ -15,4 +15,10 @@ The application animate the julia fractals, finding a path around the Mandelbrot
 
 ![Julia Path](https://julia-live.s3.amazonaws.com/JuliaPath.png)
 
-When you click on the Mandelbrot image, used for navigation during the animation, you can actually see the [Julia Map](http://julia-live.s3-website-us-east-1.amazonaws.com/map). This is an interactive map which display, for each point in the complex plane the corresponding Julia Fractal. This map clearly shows the location of the fractal which are 'interesting' to view, which are typically the one at the border of the Mandelbrot  set.
+When you click on the Mandelbrot image, used for navigation during the animation, you can actually see the [Julia Map](http://julia-live.s3-website-us-east-1.amazonaws.com/mapClassic). This is an interactive map which display, for each point in the complex plane the corresponding Julia Fractal. This map clearly shows the location of the fractal which are 'interesting' to view, which are typically the one at the border of the Mandelbrot  set.
+
+The application also supports the [Phoenix fractal](http://usefuljs.net/fractals/docs/mandelvariants.html) for which the path generated is the following :
+
+![Phoenix Path](https://julia-live.s3.amazonaws.com/PhoenixPath.png)
+
+As for the julia fractals, you can see [Phoenix Map](http://julia-live.s3-website-us-east-1.amazonaws.com/mapPhoenix) fractals and interactively explore the fractals which can be generated.
