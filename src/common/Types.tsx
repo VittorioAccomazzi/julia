@@ -39,6 +39,7 @@ export interface WindowSize {
     height: number
 }
 export type WindowSizeEvent  = ( ratio: WindowSize ) => void
+
 export type AnimationCompletedEvent = ()=> void
 
 export type  FractalProps = {
@@ -68,20 +69,9 @@ export type AnimationProps = {
     onCompleted? : AnimationCompletedEvent
 }
 
-export const defaultZoom ={
-    zoom : 2
-}
+export type MapRender = ( props : MapProps )=> void;
 
-export const defaultPos ={
-    x: -1,
-    y: 0
-}
+export type NavRender = ( props : AreaNavigationProps ) => void;
 
-export const defaultViewport ={
-    x:-1,
-    y:-1,
-    width:2,
-    height:2
-}
 
 export {}

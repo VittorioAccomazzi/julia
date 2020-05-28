@@ -1,6 +1,8 @@
-import React, { FunctionComponent,  useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {ViewportPos, ViewportZoom, WindowSizeEvent, WindowSize } from '../../common/Types'
 import {isMobile} from 'react-device-detect';
+import {MapRender, NavRender} from '../../common/Types'
+import Luts from '../../common/Luts.json'
 
 // Important : the line below on touchAction is FUNDAMENTAL since
 // React will not stop the native event. It shall be stopped using
@@ -9,39 +11,13 @@ import {isMobile} from 'react-device-detect';
 // and 
 // https://medium.com/@Esakkimuthu/passive-event-listeners-5dbb1b011fb1
 
-
 const divStyle : React.CSSProperties = {
     touchAction: 'none' 
 }
 
-const labelStyle : React.CSSProperties = {
-    position: 'absolute', 
-    right: '8px', 
-    bottom: '8px',
-    fontSize : '10px',
-    color:'white'
-    
-}
-
-type nvigatorComponentProps = {
-    x: number,
-    y: number, 
-    width : number,
-    height: number
-}
-type navigatorComponent = FunctionComponent<nvigatorComponentProps>;
-
-type displayComponentProps = {
-    zoom : ViewportZoom,
-    pos  : ViewportPos,
-    onViewportSize : WindowSizeEvent
-}
-
-type displayComponent = FunctionComponent<displayComponentProps>;
-
 type InteractorProps = {
-    display : React.ReactElement<displayComponent>
-    navigation? : React.ReactElement<navigatorComponent>
+    display : MapRender,
+    navigation? : NavRender
 }
 
 const defaultZoom ={
@@ -220,12 +196,10 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
             onTouchEnd={onTouchEnd}
             >
             { 
-                React.cloneElement(display as React.ReactElement, {zoom, pos, onViewportSize}) 
+                display({zoom, pos, onViewportSize, lut:Luts[0]}) 
             }
             {
-                navigation ?
-                    React.cloneElement(navigation as React.ReactElement, viewport())   
-                : null
+                navigation ?  navigation(viewport())  : null
             }
         </div>
     )

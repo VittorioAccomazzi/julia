@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from "react";
+import React from "react";
 import gitVersion from '../Tools/gitInfo.json'
 
 const versionStyle : React.CSSProperties = {
@@ -15,7 +15,7 @@ const ribbonStyle : React.CSSProperties = {
 
 type gitInfoProps = { label : string, baseURL? : string, forkme : Boolean }
 
-const  GitInfo : FunctionComponent<gitInfoProps> = ({label, baseURL, forkme}) => {
+const  GitInfo = ({label, baseURL, forkme}:gitInfoProps) => {
         const handleClick = () => {
             if( baseURL && gitVersion.long !== "" )  window.location.href = baseURL+'/tree/'+gitVersion.long;
         }

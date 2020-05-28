@@ -1,17 +1,13 @@
-import React, { FunctionComponent } from "react";
-import Luts from '../../common/Luts.json'
-import Interactor from './Interactor'
+import React from "react";
+import Interactor  from './Interactor'
 import MapHelp from "./MapHelp";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Clickable from '../../common/Clickable';
-import {MapProps, AreaNavigationProps, defaultViewport, defaultZoom, defaultPos} from '../../common/Types'
-
-type mapComponent = FunctionComponent<MapProps>;
-type navComponent = FunctionComponent<AreaNavigationProps>
+import {MapRender, NavRender, MapProps, AreaNavigationProps} from '../../common/Types'
 
 type MapViewerBaseProps ={
-    map : React.ReactElement<mapComponent>,
-    nav : React.ReactElement<navComponent>
+    map : MapRender,
+    nav : NavRender
 }
 
 const labelStyle : React.CSSProperties = {
@@ -28,19 +24,8 @@ const MapViewerBase = ({map, nav} : MapViewerBaseProps) =>{
     return (
         <>
             <Interactor 
-                display = {
-                        React.cloneElement(map as React.ReactElement, {zoom:defaultZoom, pos:defaultPos, lut:Luts[1]}) 
-                    }
-                navigation = {
-                    React.cloneElement(nav as React.ReactElement, {
-                        x:defaultViewport.x,
-                        y:defaultViewport.y ,
-                        width:defaultViewport.width,
-                        height:defaultViewport.height
-                    })
-                }
-                />
-                )}
+                display = { (props : MapProps )=> map({...props}) }
+                navigation = { (props : AreaNavigationProps ) =>  nav( {...props})  } /> }
             />
             <Clickable>
                 <div style={labelStyle}>

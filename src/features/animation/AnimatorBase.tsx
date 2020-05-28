@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef, FunctionComponent } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { C, Lut, AnimationPath, FractalProps, PointNavigationProps, AnimationCompletedEvent } from '../../common/Types';
 import luts from '../../common/Luts.json'
 import NoInteraction from './NoInteraction';
 import Clickable from '../../common/Clickable'
 
 
-    type FractalComponent = FunctionComponent<FractalProps>;
-    type NovigationComponent = FunctionComponent<PointNavigationProps>;
+    type FractalRender = ( props : FractalProps ) => void;
+    type NavigationRender = ( props : PointNavigationProps ) => void 
 
     type AnimatorBaseProps = {
         cPoints : AnimationPath,
         resetTime : number,
         frameTime : number,
         flipY : boolean,
-        fractal : React.ReactElement<FractalComponent>,
-        navigation : React.ReactElement<NovigationComponent>,
+        fractal : FractalRender
+        navigation : NavigationRender,
         mapURL : string,
         onCompleted? : AnimationCompletedEvent
     }
@@ -100,12 +100,14 @@ import Clickable from '../../common/Clickable'
                     <NoInteraction>
                         <>
                         {
-                            React.cloneElement(fractal as React.ReactElement, {c:cPoint, lut:lut.current}) 
+                           fractal({c:cPoint, lut:lut.current}) 
                         }
                         <Clickable link={mapURL}>
-                            {
-                                React.cloneElement(navigation as React.ReactElement, {c:cPoint}) 
-                            }
+                            <>
+                                {
+                                    navigation({c:cPoint}) 
+                                }
+                            </>
                         </Clickable>
                         </>
                     </NoInteraction>
