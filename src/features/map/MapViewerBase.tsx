@@ -3,11 +3,14 @@ import Interactor  from './Interactor'
 import MapHelp from "./MapHelp";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Clickable from '../../common/Clickable';
-import {MapRender, NavRender, MapProps, AreaNavigationProps} from '../../common/Types'
+import {MapProps, AreaNavigationProps, AnimationPath} from '../../common/Types'
+import AreaNavigationBase from './AreaNavigationBase'
+import MapBase from './MapBase'
 
 type MapViewerBaseProps ={
-    map : MapRender,
-    nav : NavRender
+    cPoints : AnimationPath,
+    mapImg : string, 
+    fragmentSource: string
 }
 
 const labelStyle : React.CSSProperties = {
@@ -19,13 +22,13 @@ const labelStyle : React.CSSProperties = {
     alignItems:'center'
 }
 
-const MapViewerBase = ({map, nav} : MapViewerBaseProps) =>{
+const MapViewerBase = ({mapImg, cPoints, fragmentSource} : MapViewerBaseProps) =>{
 
     return (
         <>
             <Interactor 
-                display = { (props : MapProps )=> map({...props}) }
-                navigation = { (props : AreaNavigationProps ) =>  nav( {...props})  } /> }
+                display = { (props : MapProps )=> <MapBase {...props} fragmentSource={fragmentSource}/> }
+                navigation = { (props : AreaNavigationProps ) =>  <AreaNavigationBase {...props} mapImage={mapImg} cPoints={cPoints}/>  }
             />
             <Clickable>
                 <div style={labelStyle}>

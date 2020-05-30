@@ -2,7 +2,6 @@ import React  from "react";
 import { AnimationPath } from '../../common/Types'
 import NavigationEngine from '../../common/NavigatonEngine'
 
-
 type AreaNavigationBaseProps = {
     x: number,
     y: number,
@@ -10,7 +9,6 @@ type AreaNavigationBaseProps = {
     height: number,
     mapImage : string,
     cPoints : AnimationPath
-
 }
 
 const AreaNavigationBase = ({x,y,width, height, mapImage, cPoints} : AreaNavigationBaseProps) => {

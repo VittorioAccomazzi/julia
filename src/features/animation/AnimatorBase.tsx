@@ -1,26 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import { C, Lut, AnimationPath, FractalProps, PointNavigationProps, AnimationCompletedEvent } from '../../common/Types';
+import { C, Lut, AnimationPath, AnimationCompletedEvent } from '../../common/Types';
 import luts from '../../common/Luts.json'
 import NoInteraction from './NoInteraction';
 import Clickable from '../../common/Clickable'
-
-
-    type FractalRender = ( props : FractalProps ) => void;
-    type NavigationRender = ( props : PointNavigationProps ) => void 
+import JuliaBase from './JuliaBase'
+import PointNavigationBase from './PointNavigationBase'
 
     type AnimatorBaseProps = {
         cPoints : AnimationPath,
         resetTime : number,
         frameTime : number,
         flipY : boolean,
-        fractal : FractalRender
-        navigation : NavigationRender,
         mapURL : string,
+        mapImg : string,
+        fragmentSource : string,
         onCompleted? : AnimationCompletedEvent
     }
     
+    const defaultZoom ={
+        zoom : 2.5
+    }
 
-    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fractal, navigation, mapURL, onCompleted}:AnimatorBaseProps) => {
+    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fragmentSource, mapImg, mapURL, onCompleted}:AnimatorBaseProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -99,15 +100,18 @@ import Clickable from '../../common/Clickable'
                 { cPoint != null && (
                     <NoInteraction>
                         <>
-                        {
-                           fractal({c:cPoint, lut:lut.current}) 
-                        }
+                           <JuliaBase
+                                c={cPoint}
+                                lut={lut.current}
+                                fragmentSource={fragmentSource}
+                                zoom={defaultZoom} 
+                           />
                         <Clickable link={mapURL}>
-                            <>
-                                {
-                                    navigation({c:cPoint}) 
-                                }
-                            </>
+                            <PointNavigationBase
+                                c={cPoint}
+                                cPoints={cPoints}
+                                mapImage={mapImg}
+                            />
                         </Clickable>
                         </>
                     </NoInteraction>
