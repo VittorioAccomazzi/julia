@@ -9,9 +9,6 @@ const frameTime = 100;  // ms per frame .
 
 
 const AnimatorNewton = ({onCompleted}:AnimationProps) =>{
-    const completed = ()=>{
-        if( onCompleted ) onCompleted();
-    }
  return (
      <AnimatorBase
         cPoints={cPoints}
@@ -23,7 +20,7 @@ const AnimatorNewton = ({onCompleted}:AnimationProps) =>{
         mapImg="Newton.png"
         startZoom={{zoom:3.5}}
         singleLut={lut}
-        onCompleted={completed}
+        onCompleted={onCompleted}
      />
  )  
 }

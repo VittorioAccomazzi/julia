@@ -7,9 +7,6 @@ const resetTime = 1000; // time of new animation
 const frameTime = 100;  // ms per frame .
 
 const AnimatorPhoenix = ({onCompleted}:AnimationProps) =>{
-    const completed = ()=>{
-        if( onCompleted ) onCompleted();
-    }
  return (
      <AnimatorBase
         cPoints={cPoints}
@@ -19,7 +16,7 @@ const AnimatorPhoenix = ({onCompleted}:AnimationProps) =>{
         fragmentSource={fragmentSource}
         mapURL="/mapPhoenix"
         mapImg="Phoenix.png"
-        onCompleted={completed}
+        onCompleted={onCompleted}
      />
  )  
 }

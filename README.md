@@ -29,7 +29,7 @@ The application also supports the [Phoenix fractal](http://usefuljs.net/fractals
 As for the julia fractals, you can see [Phoenix Map](http://julia-live.s3-website-us-east-1.amazonaws.com/mapPhoenix) fractals and interactively explore the fractals which can be generated.
 
 ##### Netwton Fractal
-The application supports the [Newton Fractals](https://en.wikipedia.org/wiki/Newton_fractal) for the equation z^3-1. The map for tis fractal is the following :
+The application supports the [Newton Fractals](https://en.wikipedia.org/wiki/Newton_fractal) for the equation z^3-1. The map for this fractal is the following :
 
 ![Newton Path](https://julia-live.s3.amazonaws.com/NewtonPath.png)
 
