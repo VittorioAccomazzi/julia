@@ -31,6 +31,6 @@ As for the julia fractals, you can see [Phoenix Map](http://julia-live.s3-websit
 ##### Netwton Fractal
 The application supports the [Newton Fractals](https://en.wikipedia.org/wiki/Newton_fractal) for the equation z^3-1. The map for tis fractal is the following :
 
-![Newton Path](https://julia-live.s3.amazonaws.com/NetwtonPath.png)
+![Newton Path](https://julia-live.s3.amazonaws.com/NewtonPath.png)
 
 And  you can interactively navigate the map using [Newton Map](http://julia-live.s3-website-us-east-1.amazonaws.com/mapNewton)  where for each point on the complex plane youu can see the fractal generated. 
