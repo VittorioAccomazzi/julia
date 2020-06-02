@@ -1,6 +1,6 @@
 import React from "react";
 import {Lut, ViewportPos, ViewportZoom, WindowSizeEvent} from '../../common/Types';
-import FractalEngine from '../../common/FractalEngine';
+import WebGLViewport from '../../common/WebGLVIewport';
 
 type MapBaseProps = {
     lut : Lut,
@@ -13,7 +13,7 @@ type MapBaseProps = {
 const MapBase = ({lut, zoom, pos, onViewportSize, fragmentSource} : MapBaseProps) =>{
 
     return (
-        <FractalEngine 
+        <WebGLViewport 
             fragShaderCode={fragmentSource}
             vPos={pos}
             vZoom={zoom}

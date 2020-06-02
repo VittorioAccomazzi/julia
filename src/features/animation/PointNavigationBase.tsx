@@ -1,6 +1,6 @@
 import React  from "react";
 import { C, AnimationPath } from '../../common/Types';
-import NavigationEngine from '../../common/NavigatonEngine'
+import NavigationBase from '../../common/NavigationBase'
 
 type NavigationProps = {
     c : C,
@@ -31,7 +31,7 @@ const PoinNavigationBase = ({c, cPoints, mapImage } : NavigationProps) => {
     }
 
     return (
-        <NavigationEngine
+        <NavigationBase
             onCanvasDraw={onCanvasDraw}
             mapImage={mapImage}
         />

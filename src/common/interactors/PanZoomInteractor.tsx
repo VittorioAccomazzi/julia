@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {ViewportPos, ViewportZoom, WindowSizeEvent, WindowSize } from '../../common/Types'
+import {ViewportPos, ViewportZoom, WindowSizeEvent, WindowSize } from '../Types'
 import {isMobile} from 'react-device-detect';
-import {MapRender, NavRender} from '../../common/Types'
-import Luts from '../../common/Luts.json'
+import {MapRender, NavRender} from '../Types'
+import Luts from '../Luts.json'
 
 // Important : the line below on touchAction is FUNDAMENTAL since
 // React will not stop the native event. It shall be stopped using
@@ -15,7 +15,7 @@ const divStyle : React.CSSProperties = {
     touchAction: 'none' 
 }
 
-type InteractorProps = {
+type PanZoomInteractorProps = {
     display : MapRender,
     navigation? : NavRender,
     startZoom?  : ViewportZoom,
@@ -39,7 +39,7 @@ const defaultSize ={
 const zoomMin = isMobile ? 0.05 : 0.01;
 const zoomMax = 4.0;
 
-const Interactor = ({display, navigation, startPos, startZoom }: InteractorProps) =>{
+const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomInteractorProps) =>{
     let [pos,setPos] = useState<ViewportPos>(defaultPos)
     let [zoom,setZoom] = useState<ViewportZoom>(defaultZoom)
     let [size,setSize] = useState<WindowSize>(defaultSize)
@@ -215,5 +215,5 @@ const Interactor = ({display, navigation, startPos, startZoom }: InteractorProps
     )
 }
 
-export default Interactor;
+export default PanZoomInteractor;
 

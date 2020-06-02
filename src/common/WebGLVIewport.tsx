@@ -34,7 +34,7 @@ const canvasStyle : React.CSSProperties = {
 type webGLCreateU = ( context : WebGLRenderingContext, program : WebGLProgram ) => void
 type webGLUseU    = ( context : WebGLRenderingContext ) => void
 
-type FractalEngingProps = {
+type WebGLViewportProps = {
     vZoom : ViewportZoom,
     vPos : ViewportPos,
     lut : Lut,
@@ -49,7 +49,7 @@ const defaultSize = {
     height: 0
 }
 
-const FractalEngine = ({vZoom, vPos, lut, createUniform, setUniform, onViewportSize, fragShaderCode } : FractalEngingProps) => {
+const WebGLViewport = ({vZoom, vPos, lut, createUniform, setUniform, onViewportSize, fragShaderCode } : WebGLViewportProps) => {
     let canvas = React.useRef<HTMLCanvasElement> (null);
     let glViewport = React.useRef<WebGLViewport> ();
     let [, setSize] = useState<WindowSize>(defaultSize);
@@ -94,7 +94,7 @@ const FractalEngine = ({vZoom, vPos, lut, createUniform, setUniform, onViewportS
     );
 }
 
-export default FractalEngine;
+export default WebGLViewport;
 
 /*********************************************************************/
 /**                                                                 **/

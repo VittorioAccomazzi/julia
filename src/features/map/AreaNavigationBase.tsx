@@ -1,6 +1,6 @@
 import React  from "react";
 import { AnimationPath } from '../../common/Types'
-import NavigationEngine from '../../common/NavigatonEngine'
+import NavigationBase from '../../common/NavigationBase'
 
 type AreaNavigationBaseProps = {
     x: number,
@@ -35,7 +35,7 @@ const AreaNavigationBase = ({x,y,width, height, mapImage, cPoints} : AreaNavigat
     }
 
     return (
-        <NavigationEngine
+        <NavigationBase
             onCanvasDraw={onCanvasDraw}
             mapImage={mapImage}
         />

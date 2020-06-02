@@ -4,11 +4,11 @@ const divStyle : React.CSSProperties = {
     userSelect:'none'
 }
 
-type ClickableProps = {
+type ClickableLinkProps = {
     link? : string,
     children : React.ReactElement
 }
-const Clickable = ({link,children } : ClickableProps)=>{
+const ClickableLink = ({link,children } : ClickableLinkProps)=>{
 
     const onClick = ( event : React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         if( link ){
@@ -26,4 +26,4 @@ const Clickable = ({link,children } : ClickableProps)=>{
 
 }
 
-export default  Clickable;
+export default  ClickableLink;

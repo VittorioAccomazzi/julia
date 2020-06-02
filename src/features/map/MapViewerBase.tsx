@@ -1,8 +1,8 @@
 import React from "react";
-import Interactor  from './Interactor'
+import PanZoomInteractor  from '../../common/interactors/PanZoomInteractor'
 import MapHelp from "./MapHelp";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Clickable from '../../common/Clickable';
+import ClickableLink from '../../common/interactors/ClickableLink';
 import {MapProps, AreaNavigationProps, AnimationPath, ViewportZoom, ViewportPos, Lut} from '../../common/Types'
 import AreaNavigationBase from './AreaNavigationBase'
 import MapBase from './MapBase'
@@ -29,18 +29,18 @@ const MapViewerBase = ({mapImg, cPoints, fragmentSource, startPos, startLut, sta
 
     return (
         <>
-            <Interactor 
+            <PanZoomInteractor 
                 display = { (props : MapProps )=> <MapBase {...props} fragmentSource={fragmentSource} lut={startLut??props.lut}/> }
                 navigation = { (props : AreaNavigationProps ) =>  <AreaNavigationBase {...props} mapImage={mapImg} cPoints={cPoints}/>  }
                 startPos={startPos}
                 startZoom={startZoom}
             />
-            <Clickable>
+            <ClickableLink>
                 <div style={labelStyle}>
                     <ArrowBackIcon/>
                     <small>Back to Animation</small>
                 </div>
-            </Clickable>
+            </ClickableLink>
             <MapHelp/>
         </>
     )

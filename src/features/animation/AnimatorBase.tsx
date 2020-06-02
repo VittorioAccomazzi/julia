@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { C, Lut, AnimationPath, AnimationCompletedEvent, ViewportZoom } from '../../common/Types';
 import luts from '../../common/Luts.json'
-import NoInteraction from './NoInteraction';
-import Clickable from '../../common/Clickable'
-import JuliaBase from './JuliaBase'
+import NoInteraction from '../../common/interactors/NoInteraction';
+import ClickableLink from '../../common/interactors/ClickableLink'
+import JuliaBase from '../../common/JuliaBase'
 import PointNavigationBase from './PointNavigationBase'
 
     type AnimatorBaseProps = {
@@ -108,13 +108,13 @@ import PointNavigationBase from './PointNavigationBase'
                                 fragmentSource={fragmentSource}
                                 zoom={startZoom} 
                            />
-                        <Clickable link={mapURL}>
+                        <ClickableLink link={mapURL}>
                             <PointNavigationBase
                                 c={cPoint}
                                 cPoints={cPoints}
                                 mapImage={mapImg}
                             />
-                        </Clickable>
+                        </ClickableLink>
                         </>
                     </NoInteraction>
                 ) }

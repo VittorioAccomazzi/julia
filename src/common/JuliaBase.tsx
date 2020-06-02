@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
-import {C, Lut, ViewportZoom} from '../../common/Types';
-import FractalEngine from '../../common/FractalEngine';
+import {C, Lut, ViewportZoom} from './Types';
+import WebGLViewport from './WebGLVIewport';
 
 type JuliaBaseProps = {
     c: C,
@@ -26,7 +26,7 @@ const JuliaBase = ({c, lut, fragmentSource, zoom} : JuliaBaseProps) =>{
     }
 
     return (
-        <FractalEngine 
+        <WebGLViewport 
             fragShaderCode={fragmentSource}
             vPos={pos}
             vZoom={zoom}

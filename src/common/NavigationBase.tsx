@@ -12,12 +12,12 @@ const imageStyle : React.CSSProperties = {
 
 type canvasDraw = ( context : CanvasRenderingContext2D  ) => void;
 
-type NavigationEngineProps = {
+type NavigationBaseProps = {
     onCanvasDraw : canvasDraw,
     mapImage : string
 }
 
-const NavigationEngine = ({onCanvasDraw, mapImage} : NavigationEngineProps) =>{
+const NavigationBase = ({onCanvasDraw, mapImage} : NavigationBaseProps) =>{
     let canvas = React.useRef<HTMLCanvasElement> (null);
     useEffect(()=>{
         if( canvas.current ){
@@ -39,4 +39,4 @@ const NavigationEngine = ({onCanvasDraw, mapImage} : NavigationEngineProps) =>{
     )
 }
 
-export default NavigationEngine;
+export default NavigationBase;
