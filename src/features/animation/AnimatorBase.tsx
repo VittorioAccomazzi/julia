@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { C, Lut, AnimationPath, AnimationCompletedEvent } from '../../common/Types';
+import { C, Lut, AnimationPath, AnimationCompletedEvent, ViewportZoom } from '../../common/Types';
 import luts from '../../common/Luts.json'
 import NoInteraction from './NoInteraction';
 import Clickable from '../../common/Clickable'
@@ -14,6 +14,8 @@ import PointNavigationBase from './PointNavigationBase'
         mapURL : string,
         mapImg : string,
         fragmentSource : string,
+        startZoom? : ViewportZoom,
+        singleLut? : Lut,
         onCompleted? : AnimationCompletedEvent
     }
     
@@ -21,7 +23,7 @@ import PointNavigationBase from './PointNavigationBase'
         zoom : 2.5
     }
 
-    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fragmentSource, mapImg, mapURL, onCompleted}:AnimatorBaseProps) => {
+    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fragmentSource, mapImg, mapURL, startZoom=defaultZoom, singleLut, onCompleted}:AnimatorBaseProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);
@@ -38,7 +40,7 @@ import PointNavigationBase from './PointNavigationBase'
             if ( pathIndex.current === pathEnd.current){
                 if( !isInit && onCompleted ) onCompleted();
                 // select the lut
-                lut.current=selectRandomElement(luts);
+                lut.current= singleLut ?? selectRandomElement(luts);
                 // Path is completed, need to create a new one.
                 let p1 =0;
                 let p2 =0;
@@ -104,7 +106,7 @@ import PointNavigationBase from './PointNavigationBase'
                                 c={cPoint}
                                 lut={lut.current}
                                 fragmentSource={fragmentSource}
-                                zoom={defaultZoom} 
+                                zoom={startZoom} 
                            />
                         <Clickable link={mapURL}>
                             <PointNavigationBase

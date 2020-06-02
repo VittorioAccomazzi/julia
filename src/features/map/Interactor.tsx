@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {ViewportPos, ViewportZoom, WindowSizeEvent, WindowSize } from '../../common/Types'
 import {isMobile} from 'react-device-detect';
 import {MapRender, NavRender} from '../../common/Types'
@@ -17,7 +17,9 @@ const divStyle : React.CSSProperties = {
 
 type InteractorProps = {
     display : MapRender,
-    navigation? : NavRender
+    navigation? : NavRender,
+    startZoom?  : ViewportZoom,
+    startPos?   : ViewportPos
 }
 
 const defaultZoom ={
@@ -37,12 +39,18 @@ const defaultSize ={
 const zoomMin = isMobile ? 0.05 : 0.01;
 const zoomMax = 4.0;
 
-const Interactor = ({display, navigation }: InteractorProps) =>{
+const Interactor = ({display, navigation, startPos, startZoom }: InteractorProps) =>{
     let [pos,setPos] = useState<ViewportPos>(defaultPos)
     let [zoom,setZoom] = useState<ViewportZoom>(defaultZoom)
+    let [size,setSize] = useState<WindowSize>(defaultSize)
     let pointerPos     = useRef<ViewportPos|null>(null);
     let pointersDst    = useRef<number|null>(null) ;
-    let windowSize     = useRef<WindowSize>(defaultSize)
+
+    // Initialize values
+    useEffect(()=>{
+        if( startPos) setPos(startPos);
+        if( startZoom) setZoom(startZoom);
+    },[])
 
 
     // reset all
@@ -50,16 +58,18 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
         pointerPos.current =null;
         pointersDst.current=null;
     }
+
+
     const doPan = (x:number, y:number )=>{
         if( pointerPos.current){
-            let mSize = Math.min( windowSize.current.width, windowSize.current.height);
-            let vW = windowSize.current.width/mSize*zoom.zoom; // size of the complex plane
-            let vH = windowSize.current.height/mSize*zoom.zoom;
+            let mSize = Math.min( size.width, size.height);
+            let vW = size.width/mSize*zoom.zoom; // size of the complex plane
+            let vH = size.height/mSize*zoom.zoom;
             let dx = x-pointerPos.current.x;
             let dy = y-pointerPos.current.y;
             setPos({
-                x:pos.x-dx/windowSize.current.width*vW,
-                y:pos.y-dy/windowSize.current.height*vH
+                x:pos.x-dx/size.width*vW,
+                y:pos.y-dy/size.height*vH
             });
             pointerPos.current = { x,y };  
         }     
@@ -68,18 +78,18 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
     const doZoom = (factor : number, x: number, y: number )=>{
         let nZoom = zoom.zoom*factor;
         nZoom = nZoom > zoomMax ? zoomMax : (nZoom < zoomMin ? zoomMin : nZoom);
-        let mSize = Math.min( windowSize.current.width, windowSize.current.height);
-        let vW = windowSize.current.width/mSize*zoom.zoom; // size of the complex plane
-        let vH = windowSize.current.height/mSize*zoom.zoom;
-        let xB = -vW/2+pos.x+x/windowSize.current.width*vW;    //(xC,yC) in complex space before zoom
-        let yB = -vH/2+pos.y+y/windowSize.current.height*vH;
+        let mSize = Math.min( size.width, size.height);
+        let vW = size.width/mSize*zoom.zoom; // size of the complex plane
+        let vH = size.height/mSize*zoom.zoom;
+        let xB = -vW/2+pos.x+x/size.width*vW;    //(xC,yC) in complex space before zoom
+        let yB = -vH/2+pos.y+y/size.height*vH;
         zoom ={
             zoom : nZoom
         };
-        vW = windowSize.current.width/mSize*zoom.zoom; // size of the complex plane
-        vH = windowSize.current.height/mSize*zoom.zoom;
-        let xA = -vW/2+pos.x+x/windowSize.current.width*vW; 
-        let yA = -vH/2+pos.y+y/windowSize.current.height*vH;
+        vW = size.width/mSize*zoom.zoom; // size of the complex plane
+        vH = size.height/mSize*zoom.zoom;
+        let xA = -vW/2+pos.x+x/size.width*vW; 
+        let yA = -vH/2+pos.y+y/size.height*vH;
          // xA should be the same of xB and yA should be the same of yB
          pos = {
             x:pos.x+xB-xA,
@@ -91,9 +101,9 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
 
     // Actual viewport on the complex plane
     const viewport= () => {
-        let mSize = Math.min( windowSize.current.width, windowSize.current.height);
-        let vW = windowSize.current.width/mSize*zoom.zoom; // size of the complex plane
-        let vH = windowSize.current.height/mSize*zoom.zoom;
+        let mSize = Math.min( size.width, size.height);
+        let vW = size.width/mSize*zoom.zoom; // size of the complex plane
+        let vH = size.height/mSize*zoom.zoom;
         return ({
             width : vW, 
             height: vH,
@@ -179,7 +189,7 @@ const Interactor = ({display, navigation }: InteractorProps) =>{
 
     // Window Resize event
     const onViewportSize = ( newSize : WindowSize ) =>{
-        windowSize.current = newSize;
+        setSize(newSize);
         console.log(`viewport ratio ${newSize.width}x${newSize.height}`)
     }
 

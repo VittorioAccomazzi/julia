@@ -3,6 +3,8 @@ import AnimatorClassic from './fractals/classic/Animator'
 import MapClassic from './fractals/classic/MapViewer'
 import AnimatorPhoenix from './fractals/phoenix/Animator'
 import MapPhoenix from './fractals/phoenix/MapViewer'
+import AnimatorNewton from './fractals/newton/Animator'
+import MapViewerNewton from './fractals/newton/MapViewer'
 import AnimatorMix from './fractals/AnimatorMix'
 import {
     BrowserRouter as Router,
@@ -29,11 +31,17 @@ const AppRouter = ()=>{
           <Route path="/mapPhoenix">
               <MapPhoenix/>
           </Route>
+          <Route path="/mapNewton">
+              <MapViewerNewton/>
+          </Route>
           <Route path="/Phoenix">
             <AnimatorPhoenix/>
           </Route>
           <Route path="/Classic">
             <AnimatorClassic/>
+          </Route>
+          <Route path="/Newton">
+            <AnimatorNewton/>
           </Route>
           <Route path="/">
             <AnimatorMix/>
