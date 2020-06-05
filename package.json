@@ -25,7 +25,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "process": "node src/Tools/gitInfo.js && node src/fractals/classic/PathGenerator.js && node src/fractals/phoenix/PathGenerator.js",
+    "process": "node src/Tools/gitInfo.js && node src/fractals/classic/PathGenerator.js && node src/fractals/phoenix/PathGenerator.js && node src/fractals/newton/PathGenerator.js",
     "deploy": "aws s3 sync build/ s3://julia-live/ --profile s3-julia",
     "start": "node src/Tools/gitInfo.js && react-scripts start",
     "build": "npm run process && react-scripts build"
