@@ -66,7 +66,7 @@ const MapHelp = ()=>{
                     </DialogContentText> 
               )}
             <DialogContentText id="alert-dialog-description">
-            As you zoom in the map more and more fractal images are generated. See this <a href="https://youtu.be/-SsxG6hmf8U?t=60">short youtube video</a>.
+            As you zoom in the map more and more fractal images are generated. See this <a href="https://youtu.be/Vsj9_sRjgbA">short youtube video</a>.
             </DialogContentText>
         </DialogContent>
         <DialogActions>
