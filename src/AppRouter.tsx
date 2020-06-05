@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import AnimatorClassic from './fractals/classic/Animator'
 import MapClassic from './fractals/classic/MapViewer'
+import FractalClassic from './fractals/classic/Fractal'
 import AnimatorPhoenix from './fractals/phoenix/Animator'
 import MapPhoenix from './fractals/phoenix/MapViewer'
+import FractalPhoenix from './fractals/phoenix/Fractal'
 import AnimatorNewton from './fractals/newton/Animator'
 import MapViewerNewton from './fractals/newton/MapViewer'
+import FractalNetwton from './fractals/newton/Fractal'
 import AnimatorMix from './fractals/AnimatorMix'
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -42,6 +46,15 @@ const AppRouter = ()=>{
           </Route>
           <Route path="/Newton">
             <AnimatorNewton/>
+          </Route>
+          <Route path="/View/Classic">
+              <FractalClassic/>
+          </Route>
+          <Route path="/View/Phoenix">
+              <FractalPhoenix/>
+          </Route>
+          <Route path="/View/Newton">
+            <FractalNetwton/>
           </Route>
           <Route path="/">
             <AnimatorMix/>

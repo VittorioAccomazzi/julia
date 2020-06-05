@@ -42,10 +42,6 @@ export type WindowSizeEvent  = ( ratio: WindowSize ) => void
 
 export type AnimationCompletedEvent = ()=> void
 
-export type  FractalProps = {
-    c: C,
-    lut : Lut
-}
 
 export type PointNavigationProps = {
     c : C
@@ -58,7 +54,7 @@ export type AreaNavigationProps = {
     height: number
 }
 
-export type MapProps = {
+export type ViewportProps = {
     lut : Lut,
     zoom: ViewportZoom,
     pos : ViewportPos,
@@ -69,7 +65,7 @@ export type AnimationProps = {
     onCompleted? : AnimationCompletedEvent
 }
 
-export type MapRender = ( props : MapProps )=> void;
+export type MapRender = ( props : ViewportProps )=> void;
 
 export type NavRender = ( props : AreaNavigationProps ) => void;
 

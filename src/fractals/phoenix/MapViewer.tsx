@@ -9,6 +9,7 @@ const MapViewerClassic = () =>{
             cPoints={cPoints}
             mapImg="Phoenix.png"
             fragmentSource={mapSource}
+            clickUrl="/View/Phoenix"
         />
     )
 }

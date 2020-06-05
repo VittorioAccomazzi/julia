@@ -18,12 +18,8 @@ import PointNavigationBase from './PointNavigationBase'
         singleLut? : Lut,
         onCompleted? : AnimationCompletedEvent
     }
-    
-    const defaultZoom ={
-        zoom : 2.5
-    }
 
-    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fragmentSource, mapImg, mapURL, startZoom=defaultZoom, singleLut, onCompleted}:AnimatorBaseProps) => {
+    const AnimatorBase = ({cPoints, resetTime, frameTime, flipY, fragmentSource, mapImg, mapURL, startZoom, singleLut, onCompleted}:AnimatorBaseProps) => {
         let pathStart = useRef<number>(0);
         let pathEnd   = useRef<number>(1);
         let pathIndex = useRef<number>(0);

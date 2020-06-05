@@ -46,20 +46,23 @@ const MapHelp = ()=>{
         aria-describedby="alert-dialog-description"
         maxWidth='lg'
     >
-        <DialogTitle id="alert-dialog-title">{"Julia Map"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Fractal Map"}</DialogTitle>
          <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                This page maps <i>all</i> the <a href="https://en.wikipedia.org/wiki/Julia_set">Julia fractals</a> on the complex plane. 
+                This page maps <i>all</i> the Fractals on the complex plane. 
               </DialogContentText>
               {isMobile && (
                   <DialogContentText id="alert-dialog-description">
-                      Use the <b>pinch gesture</b> to zoom in and out the map and move it around.
+                      <li>Use the <b>pinch gesture</b> to zoom in and out the map.</li>
+                      <li>Use a <b>single finger</b> to move the map around.</li>
+                      Tap a fractal to display it full screen.
                   </DialogContentText>
               )}
               {!isMobile &&(
                     <DialogContentText id="alert-dialog-description">
                       <li>Press the <b>left mouse button</b> and drag the map around.</li>
                       <li>Use the <b>mouse wheel</b> to zoom in and out</li>
+                      Click on a fractal to display it full screen
                     </DialogContentText> 
               )}
             <DialogContentText id="alert-dialog-description">

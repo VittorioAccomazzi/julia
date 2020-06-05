@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {ViewportPos, ViewportZoom, WindowSizeEvent, WindowSize } from '../Types'
+import {ViewportPos, ViewportZoom,  WindowSize, Lut } from '../Types'
 import {isMobile} from 'react-device-detect';
 import {MapRender, NavRender} from '../Types'
 import Luts from '../Luts.json'
@@ -19,7 +19,8 @@ type PanZoomInteractorProps = {
     display : MapRender,
     navigation? : NavRender,
     startZoom?  : ViewportZoom,
-    startPos?   : ViewportPos
+    startPos?   : ViewportPos,
+    onClick?    : (x:number, y:number, size : WindowSize, pos : ViewportPos, zoom : ViewportZoom, lut:Lut )=>void
 }
 
 const defaultZoom ={
@@ -32,19 +33,23 @@ const defaultPos ={
 }
 
 const defaultSize ={
-    width : 0,
-    height: 0
+    width : 1,
+    height: 1
 }
 
+const defaultLut = Luts[0];
+
+const clickThr = 5;
 const zoomMin = isMobile ? 0.05 : 0.01;
 const zoomMax = 4.0;
 
-const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomInteractorProps) =>{
+const PanZoomInteractor = ({display, navigation, onClick, startPos, startZoom }: PanZoomInteractorProps) =>{
     let [pos,setPos] = useState<ViewportPos>(defaultPos)
     let [zoom,setZoom] = useState<ViewportZoom>(defaultZoom)
     let [size,setSize] = useState<WindowSize>(defaultSize)
     let pointerPos     = useRef<ViewportPos|null>(null);
     let pointersDst    = useRef<number|null>(null) ;
+    let buttonDown     = useRef<ViewportPos|null>(null);
 
     // Initialize values
     useEffect(()=>{
@@ -57,8 +62,8 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
     const resetAll = ()=>{
         pointerPos.current =null;
         pointersDst.current=null;
+        buttonDown.current =null;
     }
-
 
     const doPan = (x:number, y:number )=>{
         if( pointerPos.current){
@@ -99,6 +104,13 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
          setZoom(zoom);
     }
 
+    const doClick = ( x:number, y:number )=>{
+        if( buttonDown.current && 
+            Math.abs(buttonDown.current.x-x) < clickThr && 
+            Math.abs(buttonDown.current.y-y) < clickThr &&
+            onClick )  onClick(x,y,size, pos, zoom, defaultLut );
+    }
+
     // Actual viewport on the complex plane
     const viewport= () => {
         let mSize = Math.min( size.width, size.height);
@@ -115,14 +127,19 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
     // Mouse Events
 
     const onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>{
+        if( isMobile ) return;
         pointerPos.current = { x:event.clientX, y:event.clientY};
+        buttonDown.current = { x:event.clientX, y:event.clientY};
     }
 
     const onMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>{
+        if( isMobile ) return;
         doPan(event.clientX, event.clientY);  
     }
 
     const onMouseUp = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>{
+        if( isMobile ) return;
+        doClick(event.clientX, event.clientY);
         resetAll()
     }
 
@@ -145,7 +162,9 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
                 x : event.touches[0].clientX,
                 y : event.touches[0].clientY
             }
+            buttonDown.current = pointerPos.current;
             if( event.touches.length > 1 ){
+                buttonDown.current = null;
                 let dx = event.touches[0].clientX-event.touches[1].clientX;
                 let dy = event.touches[0].clientY-event.touches[1].clientY;
                 pointersDst.current = Math.sqrt(dx*dx+dy*dy);
@@ -177,12 +196,12 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
             if( pointersDst.current && dst && pointersDst.current > 0 && dst >0 ){
                 doZoom(pointersDst.current/dst, mid.x, mid.y);
             }
-            pointersDst.current=dst;
-            
+            pointersDst.current=dst;  
         }
     }
 
     const onTouchEnd = ( event : React.TouchEvent<HTMLDivElement>) => {
+        if( event.touches.length == 0 && pointerPos.current ) doClick(pointerPos.current.x, pointerPos.current.y);
         resetAll();
     }
 
@@ -206,7 +225,7 @@ const PanZoomInteractor = ({display, navigation, startPos, startZoom }: PanZoomI
             onTouchEnd={onTouchEnd}
             >
             { 
-                display({zoom, pos, onViewportSize, lut:Luts[0]}) 
+                display({zoom, pos, onViewportSize, lut:defaultLut}) 
             }
             {
                 navigation ?  navigation(viewport())  : null

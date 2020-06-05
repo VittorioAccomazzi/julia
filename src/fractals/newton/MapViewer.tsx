@@ -22,6 +22,7 @@ const MapViewerNewton = () =>{
             startZoom={defaultZoom}
             startPos={defaultPos}
             startLut={lut}
+            clickUrl="/View/Newton"
         />
     )
 }
